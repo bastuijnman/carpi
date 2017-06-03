@@ -12,7 +12,7 @@ const style = {
         color: '#FFFFFF',
         textAlign: 'center',
         padding: '1rem 0',
-        fontWeight: 'normal'
+        fontWeight: 'lighter'
     }
 
 }
