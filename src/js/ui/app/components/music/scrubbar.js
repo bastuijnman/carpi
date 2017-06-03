@@ -13,8 +13,14 @@ const style = {
 
     barContainer: {
         background: '#0B486B',
-        height: '1rem',
+        height: '0.5rem',
         width: '100%'
+    },
+
+    barFill: {
+        background: '#3B8686',
+        height: '0.5rem',
+        width: '0%'
     },
 
     time: {
@@ -29,6 +35,10 @@ const style = {
 
     right: {
         float: 'right'
+    },
+
+    clear: {
+        clear: 'both'
     }
 
 };
@@ -45,14 +55,18 @@ export default class ScrubBar extends React.Component {
     }
 
     render () {
+        let progress = this.state.position / (this.state.duration / 100) + '%';
+
         return (
             <div style={style.container}>
 
                 <span style={Object.assign({}, style.time, style.left)}>{timeFormatter(this.state.position)}</span>
                 <span style={Object.assign({}, style.time, style.right)}>{timeFormatter(this.state.duration)}</span>
-                <div style={{clear: 'both'}} />
+                <div style={style.clear} />
 
-                <div style={style.barContainer}></div>
+                <div style={style.barContainer}>
+                    <div style={Object.assign({}, style.barFill, {width: progress})} />
+                </div>
             </div>
         )
     }
