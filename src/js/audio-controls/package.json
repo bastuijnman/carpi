@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "dbus": "^1.0.0"
+  },
+  "devDependencies": {
+    "udev": "^0.4.0"
   }
 }
