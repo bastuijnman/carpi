@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dbus": "^1.0.0"
+    "dbus": "^1.0.0",
+    "socket.io-client": "^2.0.2"
   },
   "devDependencies": {
     "udev": "^0.4.0"

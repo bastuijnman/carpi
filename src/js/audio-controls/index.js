@@ -4,6 +4,12 @@ let udev = require('udev');
 let exec = require('child_process').exec;
 let monitor = udev.monitor();
 
+let currentlyPlayingTrack = {};
+
+let getUniqueTrackId = function (track) {
+    return track.Title + '_' + track.Artist + '_' + track.Album;
+};
+
 let getMacAddress = function () {
     return new Promise(function (fulfill, reject) {
         exec('hcitool con | grep SLAVE | grep -o -E "([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}"', function (err, stdout, stderr) {
@@ -13,7 +19,7 @@ let getMacAddress = function () {
             }
             fulfill(stdout.replace('\n', ''));
         });
-    }); 
+    });
 };
 
 let getBusInterface = function (macAddress) {
@@ -29,7 +35,19 @@ let getBusInterface = function (macAddress) {
 };
 
 let setSocketListeners = function (interface) {
-    // nothing yet
+
+    let socket = require('socket.io-client')('http://localhost');
+
+    setInterval(() => {
+        interface.getProperty('Track', (err, track) => {
+            if (!err) {
+                if (getUniqueTrackId(currentlyPlayingTrack) !== getUniqueTrackId(track)) {
+                    socket.emit('updateTrack', track);
+                }
+            }
+        })
+    }, 500);
+
 };
 
 let useDeviceForControls = function () {
@@ -50,7 +68,7 @@ monitor.on('add', function (device) {
          * and error prone and should be fixed.
          *
          * TODO: find a better solution for checking the MAC address
-         */ 
+         */
         setTimeout(useDeviceForControls, 1000);
     }
 });
