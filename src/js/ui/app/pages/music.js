@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from './../components/header';
+import Track from './../components/music/track';
 import ScrubBar from './../components/music/scrubbar';
 
 export default class MusicPage extends React.Component {
@@ -10,8 +11,8 @@ export default class MusicPage extends React.Component {
 
         this.state = {
             track: {
-                Title: '',
-                Artist: '',
+                Title: 'Waiting on the world to change',
+                Artist: 'John Mayer',
                 Duration: 0
             }
         }
@@ -40,8 +41,7 @@ export default class MusicPage extends React.Component {
         return (
             <div>
                 <Header text="Music" />
-                <h1>{this.state.track.Artist}</h1>
-                <h2>{this.state.track.Title}</h2>
+                <Track artist={this.state.track.Artist} title={this.state.track.Title} />
                 <ScrubBar duration={this.state.track.Duration} />
             </div>
         );
