@@ -55,14 +55,17 @@ let setSocketListeners = function (interface) {
             getInterfaceProperty(interface, 'Track'),
             getInterfaceProperty(interface, 'Status'),
             getInterfaceProperty(interface, 'Position')
-        ]).then((track, status, position) => {
+        ]).then((results) => {
+
+            let payload = {
+                track: results[0],
+                status: results[1],
+                position: results[2]
+            }
+
             socket.emit('broadcast', {
                 eventName: 'mediaPlayerUpdate',
-                payload: {
-                    track,
-                    status,
-                    position
-                }
+                payload
             });
         }).catch((err) => {
             console.log('Error while trying to broadcast update', err);
