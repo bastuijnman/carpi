@@ -47,9 +47,12 @@ export default class MusicPage extends React.Component {
 
             // Convert from miliseconds to seconds.
             track.Duration = Math.round(track.Duration / 1000);
+            position = Math.round(position / 1000);
 
             this.setState({
-                track
+                track,
+                position,
+                status
             });
         })
     }
@@ -67,7 +70,7 @@ export default class MusicPage extends React.Component {
                     <Track artist={this.state.track.Artist} title={this.state.track.Title} />
                     <Controls status={this.state.status} />
                 </div>
-                <ScrubBar duration={this.state.track.Duration} />
+                <ScrubBar duration={this.state.track.Duration} position={this.state.position} />
             </div>
         );
 
