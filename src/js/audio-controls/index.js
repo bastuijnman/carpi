@@ -55,7 +55,7 @@ let useDeviceForControls = function () {
         .then(getBusInterface)
         .then(setSocketListeners)
         .catch((err) => {
-            console.log('Error while setting the device for control use', error);
+            console.log('Error while setting the device for control use', err);
         });
 }
 
