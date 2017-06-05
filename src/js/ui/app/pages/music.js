@@ -44,7 +44,7 @@ export default class MusicPage extends React.Component {
 
             let track = payload.track || {};
             let position = payload.position || 0;
-            let duration = payload.track.duration || 0;
+            let duration = payload.track.Duration || 0;
             let status = payload.status || 'stopped';
 
             // Convert from miliseconds to seconds.
