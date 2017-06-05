@@ -36,7 +36,7 @@ let getBusInterface = function (macAddress) {
 
 let setSocketListeners = function (interface) {
 
-    let socket = require('socket.io-client')('http://localhost');
+    let socket = require('socket.io-client')('http://localhost:3000');
 
     setInterval(() => {
         interface.getProperty('Track', (err, track) => {
