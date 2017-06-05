@@ -69,6 +69,6 @@ monitor.on('add', function (device) {
          *
          * TODO: find a better solution for checking the MAC address
          */
-        setTimeout(useDeviceForControls, 1000);
+        setTimeout(useDeviceForControls, 3000);
     }
 });
