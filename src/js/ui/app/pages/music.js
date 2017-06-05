@@ -13,7 +13,12 @@ const contentStyle = {
     left: '0',
     top: '0',
     width: '100%',
-    height: '100%',
+
+    /*
+     * Cheating a bit with the height, see if there is a proper fix for this.
+     * TODO: find proper fix.
+     */
+    height: '110%',
     flexDirection: 'column'
 };
 
