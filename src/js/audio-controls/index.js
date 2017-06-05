@@ -70,6 +70,24 @@ let setSocketListeners = function (interface) {
 
     }, 500);
 
+    socket.on('mediaEvent', (payload) => {
+        switch (payload.type) {
+            case 'playPause':
+                if (payload.status === 'playing') {
+                    interface.Pause();
+                } else {
+                    interface.Play();
+                }
+                break;
+            case 'goToNext':
+                interface.Next();
+                break;
+            case 'goToPrevious':
+                interface.Previous();
+                break;
+        }
+    });
+
 };
 
 let useDeviceForControls = function () {

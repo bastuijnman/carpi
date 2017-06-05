@@ -5,6 +5,8 @@ import Track from './../components/music/track';
 import Controls from './../components/music/controls';
 import ScrubBar from './../components/music/scrubbar';
 
+import socket from './../utils/socket';
+
 const contentStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -38,30 +40,12 @@ export default class MusicPage extends React.Component {
     }
 
     componentDidMount () {
-        this.socket = io();
-
-        this.socket.on('mediaPlayerUpdate', (payload) => {
-
-            let track = payload.track || {};
-            let position = payload.position || 0;
-            let duration = payload.track.Duration || 0;
-            let status = payload.status || 'stopped';
-
-            // Convert from miliseconds to seconds.
-            duration = Math.round(duration / 1000);
-            position = Math.round(position / 1000);
-
-            this.setState({
-                track,
-                position,
-                duration,
-                status
-            });
-        });
+        this.onMediaPlayerUpdateBound = this.onMediaPlayerUpdate.bind(this);
+        socket.on('mediaPlayerUpdate', this.onMediaPlayerUpdateBound);
     }
 
     componentWillUnmount () {
-        this.socket.close();
+        socket.off('mediaPlayerUpdate', this.onMediaPlayerUpdateBound);
     }
 
     render () {
@@ -76,6 +60,24 @@ export default class MusicPage extends React.Component {
             </div>
         );
 
+    }
+
+    onMediaPlayerUpdate (payload) {
+        let track = payload.track || {};
+        let position = payload.position || 0;
+        let duration = payload.track.Duration || 0;
+        let status = payload.status || 'stopped';
+
+        // Convert from miliseconds to seconds.
+        duration = Math.round(duration / 1000);
+        position = Math.round(position / 1000);
+
+        this.setState({
+            track,
+            position,
+            duration,
+            status
+        });
     }
 
 }

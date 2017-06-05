@@ -16,4 +16,8 @@ io.on('connection', (socket) => {
     socket.on('broadcast', (data) => {
         socket.broadcast.emit(data.eventName, data.payload);
     });
+
+    socket.on('disconnect', () => {
+        console.log('A client stopped listening');
+    });
 });
