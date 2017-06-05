@@ -39,7 +39,11 @@ export default class MusicPage extends React.Component {
     componentDidMount () {
         this.socket = io();
 
-        this.socket.on('updateTrack', (track) => {
+        this.socket.on('mediaPlayerUpdate', (payload) => {
+
+            let track = payload.track || {};
+            let position = payload.position || 0;
+            let status = payload.status || 'stopped';
 
             // Convert from miliseconds to seconds.
             track.Duration = Math.round(track.Duration / 1000);
@@ -61,7 +65,7 @@ export default class MusicPage extends React.Component {
                 <Header text="Music" />
                 <div style={contentStyle}>
                     <Track artist={this.state.track.Artist} title={this.state.track.Title} />
-                    <Controls />
+                    <Controls status={this.state.status} />
                 </div>
                 <ScrubBar duration={this.state.track.Duration} />
             </div>

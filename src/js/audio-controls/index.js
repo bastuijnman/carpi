@@ -10,6 +10,18 @@ let getUniqueTrackId = function (track) {
     return track.Title + '_' + track.Artist + '_' + track.Album;
 };
 
+let getInterfaceProperty = function (interface, property) {
+    return new Promise((fulfill, reject) => {
+        interface.getProperty(property, (err, data) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            fulfill(data);
+        });
+    });
+}
+
 let getMacAddress = function () {
     return new Promise(function (fulfill, reject) {
         exec('hcitool con | grep SLAVE | grep -o -E "([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}"', function (err, stdout, stderr) {
@@ -39,13 +51,21 @@ let setSocketListeners = function (interface) {
     let socket = require('socket.io-client')('http://localhost:3000');
 
     setInterval(() => {
-        interface.getProperty('Track', (err, track) => {
-            if (!err) {
-                if (getUniqueTrackId(currentlyPlayingTrack) !== getUniqueTrackId(track)) {
-                    socket.emit('broadcast', { eventName: 'updateTrack', payload: track });
+        Promise.all([
+            getInterfaceProperty(interface, 'Track'),
+            getInterfaceProperty(interface, 'Status'),
+            getInterfaceProperty(interface, 'Position')
+        ]).then((track, status, position) => {
+            socket.emit('broadcast', {
+                eventName: 'mediaPlayerUpdate',
+                payload: {
+                    track,
+                    status,
+                    position
                 }
-            }
+            });
         })
+
     }, 500);
 
 };
