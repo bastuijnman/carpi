@@ -64,7 +64,9 @@ let setSocketListeners = function (interface) {
                     position
                 }
             });
-        })
+        }).catch((err) => {
+            console.log('Error while trying to broadcast update', err);
+        });
 
     }, 500);
 
