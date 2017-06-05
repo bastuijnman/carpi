@@ -42,6 +42,16 @@ let setSocketListeners = function (interface) {
 
         interface.getProperties((err, data) => {
 
+            if (err) {
+
+                /*
+                 * For now we don't do anything with interface errors yet. If an error
+                 * occurs it's probably just not ready for getting the properties and it
+                 * will run a next time.
+                 */
+                return;
+            }
+
             if (data.Track.Title && getUniqueTrackId(currentlyPlayingTrack) !== getUniqueTrackId(data.Track)) {
                 currentlyPlayingTrack = data.Track;
             }
