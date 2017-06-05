@@ -42,7 +42,7 @@ let setSocketListeners = function (interface) {
         interface.getProperty('Track', (err, track) => {
             if (!err) {
                 if (getUniqueTrackId(currentlyPlayingTrack) !== getUniqueTrackId(track)) {
-                    socket.emit('updateTrack', track);
+                    socket.emit('broadcast', { eventName: 'updateTrack', payload: track });
                 }
             }
         })

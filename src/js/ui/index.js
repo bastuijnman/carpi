@@ -10,6 +10,10 @@ http.listen(3000, () => {
     console.log('Server started listening');
 });
 
-io.on('connection', () => {
+io.on('connection', (socket) => {
     console.log('A client started listening');
+
+    socket.on('broadcast', (data) => {
+        socket.broadcast.emit(data.eventName, data.payload);
+    });
 });
