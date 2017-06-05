@@ -30,9 +30,10 @@ export default class MusicPage extends React.Component {
         this.state = {
             track: {
                 Title: 'Waiting on the world to change',
-                Artist: 'John Mayer',
-                Duration: 0
-            }
+                Artist: 'John Mayer'
+            },
+            duration: 0,
+            position: 0
         }
     }
 
@@ -43,18 +44,20 @@ export default class MusicPage extends React.Component {
 
             let track = payload.track || {};
             let position = payload.position || 0;
+            let duration = payload.track.duration || 0;
             let status = payload.status || 'stopped';
 
             // Convert from miliseconds to seconds.
-            track.Duration = Math.round(track.Duration / 1000);
+            duration = Math.round(duration / 1000);
             position = Math.round(position / 1000);
 
             this.setState({
                 track,
                 position,
+                duration,
                 status
             });
-        })
+        });
     }
 
     componentWillUnmount () {
@@ -62,7 +65,6 @@ export default class MusicPage extends React.Component {
     }
 
     render () {
-
         return (
             <div>
                 <Header text="Music" />
@@ -70,7 +72,7 @@ export default class MusicPage extends React.Component {
                     <Track artist={this.state.track.Artist} title={this.state.track.Title} />
                     <Controls status={this.state.status} />
                 </div>
-                <ScrubBar duration={this.state.track.Duration} position={this.state.position} />
+                <ScrubBar duration={this.state.duration} position={this.state.position} />
             </div>
         );
 

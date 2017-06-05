@@ -45,23 +45,14 @@ const style = {
 
 export default class ScrubBar extends React.Component {
 
-    constructor (params) {
-        super(params);
-
-        this.state = {
-            position: 0,
-            duration: params.duration
-        }
-    }
-
     render () {
-        let progress = this.state.position / (this.state.duration / 100) + '%';
+        let progress = this.props.position / (this.props.duration / 100) + '%';
 
         return (
             <div style={style.container}>
 
-                <span style={Object.assign({}, style.time, style.left)}>{timeFormatter(this.state.position)}</span>
-                <span style={Object.assign({}, style.time, style.right)}>{timeFormatter(this.state.duration)}</span>
+                <span style={Object.assign({}, style.time, style.left)}>{timeFormatter(this.props.position)}</span>
+                <span style={Object.assign({}, style.time, style.right)}>{timeFormatter(this.props.duration)}</span>
                 <div style={style.clear} />
 
                 <div style={style.barContainer}>
