@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import MusicPage from './pages/music';
+import DashboardPage from './pages/dashboard';
 
 const style = {
     backgroundImage: 'linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(50% 136%, #3B8686 0%, #0B486B 100%)',
@@ -15,7 +16,7 @@ class App extends React.Component {
 
         return (
             <div style={style}>
-                <MusicPage />
+                <DashboardPage />
             </div>
         )
 
