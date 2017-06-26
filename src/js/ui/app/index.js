@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom';
 
 import MusicPage from './pages/music';
 import DashboardPage from './pages/dashboard';
@@ -15,9 +19,13 @@ class App extends React.Component {
     render () {
 
         return (
-            <div style={style}>
-                <DashboardPage />
-            </div>
+
+            <Router>
+                <div style={style}>
+                    <Route exact path="/" component={DashboardPage} />
+                    <Route exact path="/music" component={MusicPage} />
+                </div>
+            </Router>
         )
 
     }

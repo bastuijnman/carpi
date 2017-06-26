@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from './../components/header';
 import Button from './../components/dashboard/button';
@@ -21,7 +22,7 @@ export default class DashboardPage extends React.Component {
             <div>
                 <Header text="Dashboard" />
                 <div style={contentStyle}>
-                    <Button icon="music-notes" text="music" />
+                    <Link to="/music"><Button icon="music-notes" text="music" /></Link>
                     <Button icon="radio" text="radio" />
                     <Button icon="phone" text="phone" />
                 </div>
